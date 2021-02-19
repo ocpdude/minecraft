@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: minecraft
-        image: shaker242/minecraft:001
+        image: shaker242/minecraft:latest
         ports:
         - containerPort: 25565
         resources:
