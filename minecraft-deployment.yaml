@@ -17,10 +17,24 @@ spec:
     spec:
       containers:
       - name: minecraft
-        image: docker.io/shaker242/minecraft:latest
+        image: shaker242/minecraft:forged
         ports:
         - containerPort: 25565
         resources:
           limits:
-            cpu: 1
+            cpu: 1.5
             memory: 2Gi
+        volumeMounts:
+        - mountPath: /usr/local/world/
+          name: world-map
+        - mountPath: /usr/local/server.properties
+          name: server-properties
+          subPath: server.properties
+      volumes:
+      - name: world-map
+        persistentVolumeClaim:
+          claimName: zombie-apocalypse-pvc
+      - name: server-properties
+        configMap:
+          name: minecraft-server-properties
+
