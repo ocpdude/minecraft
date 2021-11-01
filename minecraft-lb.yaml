@@ -1,0 +1,15 @@
+# For use with LoadBalancer Type only, use NodePort with port forwarding via your external loadbalancer for on-prem use
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-lb
+  namespace: minecraft
+spec:
+  type: LoadBalancer
+  selector:
+    deployment: minecraft
+  loadBalancerIP: 
+  ports:
+    - port: 25565
+      targetPort: 25565
