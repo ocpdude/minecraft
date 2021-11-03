@@ -1,5 +1,16 @@
+def projectName = 'minecraft-1.17'
+def projectPath = 'https://github.com/ocpdude/minecraft' 
+
 pipeline {
-  agent any
+
+agent {
+  node { label 'master' }
+    }
+
+//   options {
+//     timeout(time: 20, unit: 'MINUTES') 
+//   }
+
   tools {
         // maven 'maven-3.6.3'
         // jdk 'jdk8'
@@ -9,22 +20,50 @@ pipeline {
     environment{
         CLUSTER_NAME = "RedCloud"
         DEV_PROJECT = "minecraft-dev"
-        TEST_PROJECT = "minecraft-test"
-        PROD_PROJECT = "minecraft-prod"
     }
 
   stages {
-        stage('Create') {
-            steps {
-                script {
-                    openshift.withCluster("${env.CLUSTER_NAME}") {
-                        openshift.withProject("${env.PROJECT_NAME}") {
 
-                        } // PROJECT_NAME
-                    } // CLUSTER_NAME
-                } // script
-            } // steps
-        } // stage
+    // stage('CleanUp') {
+    //   steps {
+    //     script {
+    //         openshift.withCluster(env.CLUSTER_NAME) {
+    //             openshift.withProject(env.DEV_PROJECT) {
+    //               openshift.selector("all", [ template : projectName ]).delete() 
+    //               if (openshift.selector("secrets", projectName).exists()) { 
+    //                 openshift.selector("secrets", projectName).delete()
+    //               }
+    //             }
+    //         }
+    //     }
+    //   }
+    // }
+
+    stage ('Create Project') {
+        steps {
+            script {
+                openshift.withCluster(env.CLUSTER_NAME) {
+                        openshift.newProject(env.DEV_PROJECT) {
+                            openshift.newApp(projectPath)
+
+                        }
+                    }
+                }    
+            }
+        }
+
+        // stage('Create') {
+        //     steps {
+        //         script {
+        //             openshift.withCluster("${env.CLUSTER_NAME}") {
+        //                 openshift.withProject("${env.DEV_PROJECT}") {
+        //                     def created = openshift.newApp( 'https://github.com/ocpdude/minecraft' )
+        //                     // openshift.selector("bc", "minecraft-app").startBuild('https://github.com/ocpdude/minecraft')
+        //                 } // PROJECT_NAME
+        //             } // CLUSTER_NAME
+        //         } // script
+        //     } // steps
+        // } // stage
 
     stage('Build App') {
       steps {
