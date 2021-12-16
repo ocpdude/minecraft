@@ -42,7 +42,7 @@ agent {
     stage ('Create Project') {
         steps {
             script {
-                openshift.withCluster(env.CLUSTER_NAME) {
+                openshift.withCluster${(env.CLUSTER_NAME)} {
                         openshift.newProject(env.DEV_PROJECT) {
                             openshift.newApp(projectPath)
 
