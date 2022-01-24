@@ -11,7 +11,7 @@ To access it from your local network, use a loadbalancer mapping ingress port 25
 3. Worlds are extracted on persistant storage and mapped with pvc's
 
 ### Bedrock
-* New : Added /bedrock/Dockerfile \
+* New : Added /bedrock/Dockerfile
 
 Bedrock is still Alpha at this time, but it's up and running on OCP 4.x \
 Bedrock runs against two IPv4 ports, the primary port is 19132/tcp \
