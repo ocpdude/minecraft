@@ -19,7 +19,8 @@ jobs:
     with:
       language: hadolint
 
-  build:
+  build_push:
+    needs: linter
     name: Build image
     runs-on: [ ubuntu-latest ] 
     steps:
@@ -60,7 +61,7 @@ jobs:
           docker.io/shaker242/minecraft:latest
           
   check_quality:
-    needs: build
+    needs: build_push
     runs-on: [ ubuntu-latest ]
     steps:
     - name: Scanning Image
