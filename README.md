@@ -2,11 +2,14 @@
 
 ### Minecraft
 [![Minecraft Builder](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml)
+<<<<<<< HEAD
 
 ### Updates on 6/30 Minecraft to Version 1.19
 * Builds are now automated with GitHub Actions & Reusable Workflows.
 * Packages are deployed to ghcr.io & docker.io
 
+=======
+>>>>>>> main
 This is simple java server using NodePort service to map ports 30065/tcp to pod/container port 22565/tcp. 
 
 To access it from your local network, use a loadbalancer mapping ingress port 25565/tcp to the worker nodes on port 30065/tcp.
