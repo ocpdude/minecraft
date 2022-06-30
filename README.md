@@ -4,8 +4,8 @@
 [![Minecraft Builder](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml)
 
 ### Updated 6/30 to Version 1.19
-- Builds are now automated with GitHub Actions & Reusable Workflows.
-- Packages are deployed to ghcr.io & docker.io
+* Builds are now automated with GitHub Actions & Reusable Workflows.
+* Packages are deployed to ghcr.io & docker.io
 
 This is simple java server using NodePort service to map ports 30065/tcp to pod/container port 22565/tcp. 
 
