@@ -1,6 +1,7 @@
 ## Simple Minecraft Java Server - Works on OpenShift
 
 ### Minecraft
+[![Minecraft Builder](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml)
 This is simple java server using NodePort service to map ports 30065/tcp to pod/container port 22565/tcp. 
 
 To access it from your local network, use a loadbalancer mapping ingress port 25565/tcp to the worker nodes on port 30065/tcp.
