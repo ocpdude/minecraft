@@ -1,4 +1,4 @@
-name: Bedrock Builder  
+name: Minecraft Builder  
 
 on:
   push:
