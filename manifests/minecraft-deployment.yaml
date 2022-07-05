@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: minecraft
-        image: shaker242/minecraft:1.17.1
+        image: ghcr.io/ocpdude/minecraft:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 25565

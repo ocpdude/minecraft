@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-bedrock
+  namespace: minecraft-becrock
+  labels:
+    app: bedrock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bedrock
+  template:
+    metadata:
+      labels:
+        app: bedrock
+    spec:
+      containers:
+      - name: minecraft
+        image: ghcr.io/ocpdude/bedrock:latest
+        ports:
+        - containerPort: 25565
+        - containerPort: 19132
+        resources:
+          limits:
+            cpu: 1.5
+            memory: 2Gi
+
