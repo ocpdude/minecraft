@@ -6,6 +6,8 @@ on:
     paths: 
     - 'manifests/**.yaml'
     - 'manifests/**.yml'
+    - 'bedrock/manifests/**.yaml'
+    - 'bedrock/manifests/**.yml'
         
  workflow_dispatch:
 
