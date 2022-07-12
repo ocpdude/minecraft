@@ -1,0 +1,47 @@
+name: Minecraft Azure Prod-Deploy
+
+on:
+#   pull_request:
+#     branches:
+#     - main
+#     paths:
+#     - 'Dockerfile'
+  workflow_dispatch:
+   
+env:
+  REGISTRY: ghcr.io
+  
+jobs: 
+   az-deploy:
+      runs-on: ubuntu-latest
+      environment: aks-production
+      steps:
+         - uses: Azure/k8s-set-context@v2
+           with:
+              kubeconfig: ${{ secrets.AZURE_KUBE_CONFIG }}
+
+         # Set the target AKS cluster.
+         # - uses: Azure/aks-set-context@v1
+         #   with:
+         #      creds: '${{ secrets.AZURE_CREDENTIALS }}'
+         #      cluster-name: bluestar
+         #      resource-group: bluestar-rg
+
+         - uses: Azure/k8s-deploy@v3.1
+           with:
+              action: deploy
+              manifests: |
+                 manifests/azure-deployment.yml
+                 manifests/azure-service.yml
+              images: |
+                 '${{ env.REGISTRY }}/ocpdude/minecraft:latest'
+
+         - name: 'Remove Staging'
+           run: oc delete ns minecraft-az-staging
+            
+         - name: 'Remove Staging Environment'
+           uses: strumwolf/delete-deployment-environment@v2
+           with:
+               token: ${{secrets.GITHUB_TOKEN}}
+               environment: openshift-staging
+               onlyRemoveDeployments: true
