@@ -1,0 +1,29 @@
+name: Minecraft Prod-DESTROY
+# Let's save money and make sure this job is gone
+
+on:
+  schedule:
+    - cron: "0 18 * * *"
+    
+  workflow_dispatch:
+  
+jobs: 
+   az-destroy:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: Azure/k8s-set-context@v2
+           with:
+              kubeconfig: ${{ secrets.AZURE_KUBE_CONFIG }}
+              
+         - name: kubectl-delete
+           continue-on-error: true
+           run: |
+             kubectl delete -f manifests/azure-service.yml
+             kubectl delete -f manifests/azure-deployment.yml
+                 
+         - name: 'Remove Production Environment'
+           uses: strumwolf/delete-deployment-environment@v2
+           with:
+               token: ${{secrets.GITHUB_TOKEN}}
+               environment: aks-production
+               onlyRemoveDeployments: true
