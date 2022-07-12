@@ -1,10 +1,7 @@
-FROM docker.io/openjdk:19-slim-buster
+FROM docker.io/openjdk:slim
 LABEL app=minecraft
 RUN echo "eula=true" > /usr/local/eula.txt
 EXPOSE 25565
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /usr/local/logs /usr/local/mods
 RUN chgrp -R 0 /run /usr/local /var/cache /var/log /var/run && chmod -R g=u /run /usr/local /var/cache /var/log /var/run 
 COPY minecraft_server.1.19.jar /usr/local/
