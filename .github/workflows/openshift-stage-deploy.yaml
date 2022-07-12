@@ -1,11 +1,9 @@
 name: Minecraft OpenShift Staging
 
 on:
-  # pull_request:
-  #   branches:
-  #   - main
-  #   paths:
-  #   - 'Dockerfile'
+#   pull_request:
+#     types:
+#       - labeled
   workflow_dispatch:
    
 env:
@@ -16,7 +14,10 @@ jobs:
     environment: openshift-staging
     name: 'Staging Minecraft'
     runs-on: ubuntu-latest
-
+    # label to run 
+#     if: |
+#       github.event.label.name == 'deploy to staging'
+      
     steps:
     - name: checkout-repo
       uses: actions/checkout@v3
