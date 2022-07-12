@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: minecraft-service
+  namespace: default-1657627860109
+spec:
+  ports:
+    - name: port25565
+      protocol: TCP
+      port: 25565
+      targetPort: 25565
+  selector:
+    app: minecraft-az
+  type: LoadBalancer
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  allocateLoadBalancerNodePorts: true
+  internalTrafficPolicy: Cluster
