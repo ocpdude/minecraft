@@ -11,6 +11,7 @@ env:
 jobs: 
   deploy_staging:
     name: create deployment
+    environment: openshift-staging
     runs-on: ubuntu-latest
     if: |
       github.event.label.name == 'deploy to staging'
