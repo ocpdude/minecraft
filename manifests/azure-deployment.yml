@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: minecraft-az
-  namespace: default-1657627860109
+  namespace: minecraft-az-prod
 spec:
   replicas: 1
   selector:
