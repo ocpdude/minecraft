@@ -31,8 +31,8 @@ jobs:
            with:
               action: deploy
               manifests: |
-                 manifests/azure-deployment.yml
-                 manifests/azure-service.yml
+                 ./manifests/azure-deployment.yml
+                 ./manifests/azure-service.yml
               images: |
                  '${{ env.REGISTRY }}/ocpdude/minecraft:latest'
 
