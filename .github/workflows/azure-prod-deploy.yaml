@@ -39,13 +39,40 @@ jobs:
                  manifests/azure-service.yml
               images: |
                  '${{ env.REGISTRY }}/ocpdude/minecraft:latest'
+                 
+   remove-staging:
+     needs: az-deploy
+     environment: openshift-staging
+     name: 'Cleanup Staging'
+     runs-on: ubuntu-latest
 
-         - name: 'Remove Staging'
-           run: oc delete ns minecraft-az-staging
+     steps:
+     - name: checkout-repo
+       uses: actions/checkout@v3
+
+     - name: 'Install tools'
+       uses: redhat-actions/openshift-tools-installer@v1
+       with:
+        oc: "latest"
+     - uses: Azure/k8s-set-context@v2
+       with:
+          kubeconfig: ${{ secrets.OPENSHIFT_KUBE_CONFIG }}
+              
+     - name: Authenticate and set namespace
+       uses: redhat-actions/oc-login@v1
+       with:
+         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+         openshift_username: ${{ secrets.OPENSHIFT_USER }}
+         openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
+         certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
+         insecure_skip_tls_verify: true
+
+     - name: 'Remove Staging'
+       run: oc delete ns minecraft-az-staging
             
-         - name: 'Remove Staging Environment'
-           uses: strumwolf/delete-deployment-environment@v2
-           with:
-               token: ${{secrets.GITHUB_TOKEN}}
-               environment: openshift-staging
-               onlyRemoveDeployments: true
+     - name: 'Remove Staging Environment'
+       uses: strumwolf/delete-deployment-environment@v2
+       with:
+           token: ${{secrets.GITHUB_TOKEN}}
+           environment: openshift-staging
+           onlyRemoveDeployments: true
