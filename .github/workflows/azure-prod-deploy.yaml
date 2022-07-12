@@ -69,6 +69,7 @@ jobs:
 
      - name: 'Remove Staging'
        run: oc delete ns minecraft-az-staging
+       continue-on-error: true
             
      - name: 'Remove Staging Environment'
        uses: strumwolf/delete-deployment-environment@v2
