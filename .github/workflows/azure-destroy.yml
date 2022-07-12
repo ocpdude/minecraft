@@ -1,4 +1,4 @@
-name: Minecraft Azure Prod-DESTROY
+name: Minecraft Azure DESTROY
 # Let's save money and make sure this job is gone
 
 on:
