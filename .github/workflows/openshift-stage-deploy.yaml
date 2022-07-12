@@ -1,0 +1,47 @@
+name: Minecraft OpenShift Staging
+
+on:
+  # pull_request:
+  #   branches:
+  #   - main
+  #   paths:
+  #   - 'Dockerfile'
+  workflow_dispatch:
+   
+env:
+  REGISTRY: ghcr.io
+  
+jobs: 
+  deploy_staging:
+    environment: openshift-staging
+    name: 'Staging Minecraft'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout-repo
+      uses: actions/checkout@v3
+
+    - name: 'Install tools'
+      uses: redhat-actions/openshift-tools-installer@v1
+      with:
+        oc: "latest"
+
+    - name: Authenticate and set namespace
+      uses: redhat-actions/oc-login@v1
+      with:
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+        openshift_username: ${{ secrets.OPENSHIFT_USER }}
+        openshift_password: ${{ secrets.OCPADMIN_PASSWORD }}
+        certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
+
+    - name: 'Create Namespace'
+      run: |
+        oc new-project minecraft-az-staging
+        
+    - name: 'Deploy Test'
+      uses: redhat-actions/oc-new-app@v1
+      with:
+        app_name: minecraft
+        registry_hostname: ${{ env.REGISTRY }}
+        image: ${{ env.REGISTRY }}/ocpdude/minecraft:latest
+        namespace: minecraft-az-staging
