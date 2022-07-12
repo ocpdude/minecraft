@@ -1,4 +1,4 @@
-name: Minecraft Azure Prod-Deploy
+name: Minecraft Azure Deploy
 
 on:
 #   pull_request:
