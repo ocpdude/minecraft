@@ -3,7 +3,7 @@ name: Minecraft Azure DESTROY
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    - cron: '0 13 * * *' # UTC
     
   workflow_dispatch:
   
