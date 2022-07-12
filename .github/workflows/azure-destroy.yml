@@ -11,6 +11,9 @@ jobs:
    az-destroy:
       runs-on: ubuntu-latest
       steps:
+         - name: checkout-repo
+           uses: actions/checkout@v3
+           
          - uses: Azure/k8s-set-context@v2
            with:
               kubeconfig: ${{ secrets.AZURE_KUBE_CONFIG }}
