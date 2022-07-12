@@ -16,6 +16,9 @@ jobs:
       runs-on: ubuntu-latest
       environment: aks-production
       steps:
+         - name: checkout-repo
+           uses: actions/checkout@v3
+      
          - uses: Azure/k8s-set-context@v2
            with:
               kubeconfig: ${{ secrets.AZURE_KUBE_CONFIG }}
@@ -31,8 +34,8 @@ jobs:
            with:
               action: deploy
               manifests: |
-                 ./manifests/azure-deployment.yml
-                 ./manifests/azure-service.yml
+                 manifests/azure-deployment.yml
+                 manifests/azure-service.yml
               images: |
                  '${{ env.REGISTRY }}/ocpdude/minecraft:latest'
 
