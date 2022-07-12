@@ -33,7 +33,7 @@ jobs:
          - uses: Azure/k8s-deploy@v3.1
            with:
               action: deploy
-              namespace: default-1657627860109
+              namespace: minecraft-az-prod
               manifests: |
                  manifests/azure-deployment.yml
                  manifests/azure-service.yml
@@ -46,13 +46,14 @@ jobs:
      runs-on: ubuntu-latest
 
      steps:
-     - name: checkout-repo
-       uses: actions/checkout@v3
+#      - name: checkout-repo
+#        uses: actions/checkout@v3
 
      - name: 'Install tools'
        uses: redhat-actions/openshift-tools-installer@v1
        with:
         oc: "latest"
+        
      - uses: Azure/k8s-set-context@v2
        with:
           kubeconfig: ${{ secrets.OPENSHIFT_KUBE_CONFIG }}
@@ -74,4 +75,4 @@ jobs:
        with:
            token: ${{secrets.GITHUB_TOKEN}}
            environment: openshift-staging
-           onlyRemoveDeployments: true
+#            onlyRemoveDeployments: true
