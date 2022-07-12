@@ -1,0 +1,43 @@
+name: Label deployment trigger
+
+on:
+  pull_request:
+    types:
+      - labeled
+      
+env:
+    REGISTRY: ghcr.io
+  
+jobs: 
+  deploy_staging:
+    name: create deployment
+    runs-on: ubuntu-latest
+    if: |
+      github.event.label.name == 'deploy to staging'
+      
+    steps:
+    - name: checkout-repo
+      uses: actions/checkout@v3
+    - name: 'Install tools'
+      uses: redhat-actions/openshift-tools-installer@v1
+      with:
+        oc: "latest"
+    - name: Authenticate and set namespace
+      uses: redhat-actions/oc-login@v1
+      with:
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+        openshift_username: ${{ secrets.OPENSHIFT_USER }}
+        openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
+        certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
+        insecure_skip_tls_verify: true
+    - name: 'Create Namespace'
+      run: |
+        oc new-project minecraft-az-staging
+        
+    - name: 'Deploy Test'
+      uses: redhat-actions/oc-new-app@v1
+      with:
+        app_name: minecraft
+        registry_hostname: ${{ env.REGISTRY }}
+        image: ${{ env.REGISTRY }}/ocpdude/minecraft:latest
+        namespace: minecraft-az-staging
