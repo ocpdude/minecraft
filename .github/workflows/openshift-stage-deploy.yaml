@@ -32,7 +32,7 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
         openshift_username: ${{ secrets.OPENSHIFT_USER }}
         openshift_password: ${{ secrets.OCPADMIN_PASSWORD }}
-        certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
+        # certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
         insecure_skip_tls_verify: true
 
     - name: 'Create Namespace'
