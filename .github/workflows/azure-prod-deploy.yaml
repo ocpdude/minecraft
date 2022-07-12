@@ -76,4 +76,4 @@ jobs:
        with:
            token: ${{secrets.GITHUB_TOKEN}}
            environment: openshift-staging
-#            onlyRemoveDeployments: true
+           onlyRemoveDeployments: true
