@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: minecraft-service
-  namespace: default-1657627860109
+  namespace: minecraft-az-prod
 spec:
   ports:
     - name: port25565
