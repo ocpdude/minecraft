@@ -43,7 +43,7 @@ spec:
       securityContext: {}
       schedulerName: default-scheduler
   strategy:
-    type: RollingUpdate
+    type: Recreate
     rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 25%
