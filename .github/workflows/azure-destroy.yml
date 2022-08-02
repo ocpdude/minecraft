@@ -14,7 +14,7 @@ jobs:
          - name: checkout-repo
            uses: actions/checkout@v3
            
-         - uses: Azure/k8s-set-context@v2
+         - uses: Azure/k8s-set-context@v3
            with:
               kubeconfig: ${{ secrets.AZURE_KUBE_CONFIG }}
               
