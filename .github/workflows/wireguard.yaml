@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: sudo apt install wireguard
 
-      - run: echo "$" > privatekey
+      - run: sudo wg genkey > privatekey
 
       - run: sudo ip link add dev wg0 type wireguard
 
