@@ -1,4 +1,5 @@
 FROM docker.io/openjdk:slim
+
 LABEL app=minecraft
 RUN echo "eula=true" > /usr/local/eula.txt
 EXPOSE 25565
