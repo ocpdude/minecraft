@@ -59,7 +59,7 @@ jobs:
         tags: |
           ${{env.REGISTRY}}/ocpdude/minecraft:latest
           docker.io/shaker242/minecraft:latest
-          docker.io/shaker242/minecraft:1.19
+          docker.io/shaker242/minecraft:1.19.3
           
   check_quality:
     needs: build_push
