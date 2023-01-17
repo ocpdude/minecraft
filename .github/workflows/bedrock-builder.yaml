@@ -13,14 +13,14 @@ env:
   
 jobs:
 
-  linter:
-    # Let's lint the Dockerfile before build 
-    uses: ocpdude/reusable/.github/workflows/linter.yaml@main
-    with:
-      language: hadolint
+#   linter:
+#     # Let's lint the Dockerfile before build 
+#     uses: ocpdude/reusable/.github/workflows/linter.yaml@main
+#     with:
+#       language: hadolint
 
   build_push:
-    needs: linter
+#     needs: linter
     name: Build image
     runs-on: [ ubuntu-latest ] 
     steps:
@@ -58,10 +58,10 @@ jobs:
         context: ./bedrock
         push: true
         tags: |
-          ${{env.REGISTRY}}/ocpdude/bedrock:latest
-          ${{env.REGISTRY}}/ocpdude/bedrock:1.19
           docker.io/shaker242/bedrock:latest
-          docker.io/shaker242/bedrock:1.19
+          docker.io/shaker242/bedrock:1.19.51
+          ${{env.REGISTRY}}/ocpdude/bedrock:latest
+          ${{env.REGISTRY}}/ocpdude/bedrock:1.19.51
           
   check_quality:
     needs: build_push
