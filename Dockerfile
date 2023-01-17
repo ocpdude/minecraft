@@ -1,4 +1,4 @@
-FROM docker.io/openjdk:slim
+FROM docker.io/amazoncorretto:19-alpine
 LABEL app=minecraft
 RUN echo "eula=true" > /usr/local/eula.txt
 EXPOSE 25565
