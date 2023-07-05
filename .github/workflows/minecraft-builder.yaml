@@ -53,13 +53,13 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push to Registries
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         push: true
         tags: |
           ${{env.REGISTRY}}/ocpdude/minecraft:latest
           docker.io/shaker242/minecraft:latest
-          docker.io/shaker242/minecraft:1.19.3
+          docker.io/shaker242/minecraft:1.20.1
           
   check_quality:
     needs: build_push
