@@ -22,7 +22,7 @@ jobs:
       environment: aks-production
       steps:
          - name: checkout-repo
-           uses: actions/checkout@v3
+           uses: actions/checkout@v4
       
          - uses: Azure/k8s-set-context@v3
            with:
