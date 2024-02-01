@@ -1,5 +1,6 @@
 # NodePort type, use port forwarding on your loadbalancer/ ingress to map port 25565 to nodePort 30065
 #
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,10 +8,10 @@ metadata:
   namespace: minecraft
 spec:
   ports:
-  - name: minecraft
-    port: 25565
-    targetPort: 25565
-    nodePort: 30065
+    - name: minecraft
+      port: 25565
+      targetPort: 25565
+      nodePort: 30065
   type: NodePort
   selector:
     app: minecraft
