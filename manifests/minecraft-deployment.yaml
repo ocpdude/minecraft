@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,28 +17,28 @@ spec:
         app: minecraft
     spec:
       containers:
-      - name: minecraft
-        image: ghcr.io/ocpdude/minecraft:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 25565
-        resources:
-          limits:
-            cpu: 2
-            memory: 4Gi
-        readinessProbe:
-          tcpSocket:
-            port: 25565
-          timeoutSeconds: 1
-          periodSeconds: 30
-          successThreshold: 1
-          failureThreshold: 3
-        volumeMounts:
-        - mountPath: /usr/local/server.properties
-          name: server-properties
-          subPath: server.properties
+        - name: minecraft
+          image: ghcr.io/ocpdude/minecraft:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 25565
+          resources:
+            limits:
+              cpu: 2
+              memory: 4Gi
+          readinessProbe:
+            tcpSocket:
+              port: 25565
+            timeoutSeconds: 1
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          volumeMounts:
+            - mountPath: /usr/local/server.properties
+              name: server-properties
+              subPath: server.properties
       volumes:
-      - name: server-properties
-        configMap:
-          name: minecraft-server-properties
+        - name: server-properties
+          configMap:
+            name: minecraft-server-properties
 
