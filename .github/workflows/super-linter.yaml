@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    name: Let's lint it up! 🎸
+    name: Lint it up! 🎸
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,25 +27,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Kubernetes-linter
+      - name: ONE-TO-RULE-THEM-ALL
         uses: super-linter/super-linter/slim@v6.0.0
         env:
           KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
           VALIDATE_CHECKOV: false
-          FILTER_REGEX_INCLUDE: .manifests/.*.yaml
-          FILTER_REGEX_EXCLUDE: .bedrock/.*
+          # FILTER_REGEX_INCLUDE: .*manifests/.*.yaml
+          FILTER_REGEX_EXCLUDE: .*bedrock/.*
           DEFAULT_BRANCH: main
-          # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Docker-linter
-        uses: super-linter/super-linter/slim@v6.0.0
-        env:
           HADOLINT_IGNORE: DL3008
-          VALIDATE_CHECKOV: false
-          FILTER_REGEX_INCLUDE: .*Dockerfile
-          VALIDATE_ALL_CODEBASE: false
           # FILTER_REGEX_EXCLUDE: .*manifests/.*
-          DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
