@@ -32,8 +32,8 @@ jobs:
         env:
           KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
           VALIDATE_CHECKOV: false
-          FILTER_REGEX_INCLUDE: .*manifests/.*.yaml
-          FILTER_REGEX_EXCLUDE: .*manifests/example-nfs/.*
+          FILTER_REGEX_INCLUDE: .manifests/.*.yaml
+          FILTER_REGEX_EXCLUDE: .bedrock/.*
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,8 +42,10 @@ jobs:
         uses: super-linter/super-linter/slim@v6.0.0
         env:
           HADOLINT_IGNORE: DL3008
-          FILTER_REGEX_INCLUDE: .Dockerfile
-          FILTER_REGEX_EXCLUDE: .*manifests/.*
+          VALIDATE_CHECKOV: false
+          FILTER_REGEX_INCLUDE: .*Dockerfile
+          VALIDATE_ALL_CODEBASE: false
+          # FILTER_REGEX_EXCLUDE: .*manifests/.*
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

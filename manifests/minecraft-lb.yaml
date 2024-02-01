@@ -1,6 +1,4 @@
-# For use with LoadBalancer Type only, use NodePort with port forwarding via your external 
-# loadbalancer for on-prem use
-#
+# LoadBalancer Type only
 ---
 apiVersion: v1
 kind: Service
