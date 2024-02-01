@@ -41,4 +41,3 @@ spec:
         - name: server-properties
           configMap:
             name: minecraft-server-properties
-

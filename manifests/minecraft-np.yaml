@@ -1,4 +1,4 @@
-# NodePort type, use port forwarding on your loadbalancer/ ingress to map port 25565 to nodePort 30065
+# NodePort port forwarding to map port 25565 to nodePort 30065
 #
 ---
 apiVersion: v1
