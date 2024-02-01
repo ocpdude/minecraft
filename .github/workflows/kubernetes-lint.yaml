@@ -18,6 +18,7 @@ jobs:
     #   language: YamlLint, kubeval
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: azure/setup-kubectl@v2.0
       - uses: azure/k8s-lint@v1
         with:
