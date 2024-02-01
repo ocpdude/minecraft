@@ -12,15 +12,14 @@ on:
  workflow_dispatch:
 
 jobs:
-  k8s-lint:
-    # uses: ocpdude/reusable/.github/workflows/linter.yaml@main
-    # with:
-    #   language: YamlLint, kubeval
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: azure/setup-kubectl@v2.0
-      - uses: azure/k8s-lint@v1
-        with:
-          manifests: |
-              manifests/*.yml
+    k8s-lint:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: List files and store in environment variable
+          run: echo "MANIFESTS=$(ls manifests/*.yaml | xargs)" >> $GITHUB_ENV
+
+        - uses: azure/k8s-lint@v1
+          with:
+            manifests: ${{ env.MANIFESTS }}
