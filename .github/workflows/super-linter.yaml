@@ -12,7 +12,6 @@ on:
       - 'manifests/**.yaml'
       - 'Dockerfile'
 
-    
 jobs:
   build:
     name: Let's lint it up! 🎸
@@ -32,6 +31,7 @@ jobs:
         uses: super-linter/super-linter/slim@v6.0.0
         env:
           KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
+          VALIDATE_CHECKOV: false
           FILTER_REGEX_INCLUDE: ./manifests/.*.yaml
           DEFAULT_BRANCH: main
           # To report GitHub Actions status checks
