@@ -14,4 +14,4 @@ jobs:
         id: minecraft_version
         run: |
           echo "::setOutput name=version::$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
-          echo "successfully extracted version =" ${{ steps.minecraft_version.outputs.version }}
+          echo "successfully extracted version = ${{ steps.minecraft_version.outputs.version }}"
