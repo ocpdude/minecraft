@@ -13,7 +13,7 @@ jobs:
       - name: Extract Minecraft version
         id: minecraft_version
         run: |
-          echo "::set-output name=version::$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
+          echo "::setOutput name=version::$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
           echo ${{ steps.minecraft_version.outputs.version }}
           echo "VERSION=$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')">> $GITHUB_ENV
-          echo "${{ env.VERSION}}"
+          echo ${{ env.VERSION}}
