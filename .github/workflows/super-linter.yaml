@@ -13,42 +13,45 @@ on:
       - 'Dockerfile'
 
 jobs:
-  build:
-    name: Lint it up! 🎸
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
 
-    steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
-      #   with:
-      #     fetch-depth: 0
-      - name: linter
-        uses: ocpdude/reusable/.github/workflows/lint-docker.yaml@main
-        with:
-          file-path: Dockerfile
+  lint-docker:
+    uses: ocpdude/reusable/.github/workflows/lint-docker.yaml@main
+    with:
+      file-path: Dockerfile
 
-      # - name: Kubernetes-linter
-      #   uses: super-linter/super-linter/slim@v6.0.0
-      #   env:
-      #     KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
-      #     VALIDATE_CHECKOV: false
-      #     FILTER_REGEX_INCLUDE: .*manifests/.*.yaml
-      #     FILTER_REGEX_EXCLUDE: .*bedrock/.*
-      #     DEFAULT_BRANCH: main
-      #     # To report GitHub Actions status checks
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Docker-linter
-      #   uses: super-linter/super-linter/slim@v6.0.0
-      #   env:
-      #     HADOLINT_IGNORE: DL3008
-      #     VALIDATE_CHECKOV: false
-      #     FILTER_REGEX_INCLUDE: .*Dockerfile
-      #     FILTER_REGEX_EXCLUDE: .*/.*
-      #     DEFAULT_BRANCH: main
-      #     # To report GitHub Actions status checks
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # build:
+  #   name: Lint it up! 🎸
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: read
+  #     statuses: write
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Kubernetes-linter
+  #       uses: super-linter/super-linter/slim@v6.0.0
+  #       env:
+  #         KUBERNETES_KUBECONFORM_OPTIONS: --ignore-missing-schemas
+  #         VALIDATE_CHECKOV: false
+  #         FILTER_REGEX_INCLUDE: .*manifests/.*.yaml
+  #         FILTER_REGEX_EXCLUDE: .*bedrock/.*
+  #         DEFAULT_BRANCH: main
+  #         # To report GitHub Actions status checks
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  #     - name: Docker-linter
+  #       uses: super-linter/super-linter/slim@v6.0.0
+  #       env:
+  #         HADOLINT_IGNORE: DL3008
+  #         VALIDATE_CHECKOV: false
+  #         FILTER_REGEX_INCLUDE: .*Dockerfile
+  #         FILTER_REGEX_EXCLUDE: .*/.*
+  #         DEFAULT_BRANCH: main
+  #         # To report GitHub Actions status checks
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
