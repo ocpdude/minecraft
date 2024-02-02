@@ -16,7 +16,7 @@ jobs:
           sudo ip link add dev wg0 type wireguard
           sudo ip address add dev wg0 172.16.100.4/26
           sudo ip link set dev wg0 up
-          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips 172.16.100.0/26
+          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips 172.16.1.0/26
       
       - name: Route on-prem subnet through WireGuard
         run: sudo route add -net 172.16.1.0/26 gw 172.16.100.1 wg0
