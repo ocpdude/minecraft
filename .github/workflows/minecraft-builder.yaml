@@ -50,7 +50,7 @@ jobs:
       #   run: echo "::set-output name=date::$(date +'%m%d')"
       - name: Extract Minecraft version
         id: minecraft_version
-        run: echo "::set-output name=version::$(ls minecraft_server.1.20.4.jar | awk -F"." 'OFS="." {print $2,$3,$4}')"
+        run: echo "::set-output name=version::$(./version.sh)"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
