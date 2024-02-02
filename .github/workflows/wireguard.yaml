@@ -17,9 +17,10 @@ jobs:
           sudo ip address add dev wg0 172.16.100.2/26
           sudo ip link set dev wg0 up
           sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips '${{ secrets.WG_ALLOWED_IPS }}'
-          sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/base && sudo resolvconf -u
-          sudo route add -net 172.16.1.0/26 gw 172.16.100.1 wg0
+          sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
+          sudo up route add -net 172.16.1.0 netmask 255.255.255.192 gw 172.16.100.1 wg0
 
       - name: Test WireGuard connectivity
         run: |
+          cat /etc/resolv.conf
           ping api.okd.redcloud.land -c 4
