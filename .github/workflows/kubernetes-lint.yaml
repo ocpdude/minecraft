@@ -15,7 +15,7 @@ jobs:
     k8s-lint:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
 
         - name: 'Yamllint'
           uses: kustomize-everything/action-yaml-linter@main
