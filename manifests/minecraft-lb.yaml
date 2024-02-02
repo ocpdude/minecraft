@@ -9,8 +9,7 @@ spec:
   type: LoadBalancer
   selector:
     deployment: minecraft
-  loadBalancerIP: 
+  loadBalancerIP: IP_ADDRESS
   ports:
     - port: 25565
       targetPort: 25565
-      
