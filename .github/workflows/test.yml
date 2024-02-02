@@ -1,0 +1,17 @@
+name: test action
+on:  
+  workflow_dispatch:
+jobs:
+  build-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Get the date
+      #   id: date
+      #   run: echo "::set-output name=date::$(date +'%m%d')"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Extract Minecraft version
+        id: minecraft_version
+        run: |
+          echo "::set-output name=version::$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
+          echo "successfully extracted version = ${{ steps.minecraft_version.outputs.version }}"
