@@ -17,9 +17,10 @@ jobs:
       steps:
         - uses: actions/checkout@v3
 
-        # - name: List files and store in environment variable
-        #   run: echo "MANIFESTS=$(ls manifests/*.yaml | xargs)" >> $GITHUB_ENV
+        - name: List files and store in environment variable
+          run: echo "MANIFESTS=$(ls manifests/*.yaml | xargs)" >> $GITHUB_ENV
           
         - uses: azure/k8s-lint@v1
           with:
-            manifests: 'manifests/*.yaml'
+            manifests: |
+              ${{ env.MANIFESTS }}
