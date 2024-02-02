@@ -16,18 +16,15 @@ jobs:
           sudo ip link add dev wg0 type wireguard
           sudo ip address add dev wg0 172.16.100.4/26
           sudo ip link set dev wg0 up
-          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips 172.16.0.0/16
+          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips 172.16.100.0/26
       
-      - name: Set DNS resolver
-        run: sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
-
-      - name: Add API to /etc/hosts
-        run: sudo echo "172.16.1.19 api.okd.redcloud.land" | sudo tee -a /etc/hosts
-
-      - name: Route traffic through WireGuard
+      - name: Route on-prem subnet through WireGuard
         run: sudo route add -net 172.16.1.0/26 gw 172.16.100.1 wg0
 
-      - name: Test WireGuard connectivity
+      - name: Set DNS server
+        run: sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
+
+      - name: Test resolv
         run: |
           dig api.okd.redcloud.land
           dig @172.16.1.1 api.okd.redcloud.land
