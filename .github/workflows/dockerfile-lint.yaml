@@ -5,15 +5,11 @@ on:
     - '!main'
     paths: 
     - Dockerfile
-    - bedrock/Dockerfile
 
  workflow_dispatch:
 
 jobs:
-  docker-lint:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v4
-      - uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile
+  lint-docker:
+    uses: ocpdude/reusable/.github/workflows/lint-docker.yaml@main
+    with:
+      file-path: Dockerfile

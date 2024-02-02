@@ -6,22 +6,12 @@ on:
     paths: 
     - 'manifests/**.yaml'
     - 'manifests/**.yml'
-    - 'bedrock/manifests/**.yaml'
-    - 'bedrock/manifests/**.yml'
         
  workflow_dispatch:
 
 jobs:
-    k8s-lint:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
 
-        - name: 'Yamllint'
-          uses: kustomize-everything/action-yaml-linter@main
-          with:
-            yamllint_file_or_dir: './manifests'
-            yamllint_strict: false
-            yamllint_comment: true
-          env:
-            GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  lint-k8s:
+    uses: ocpdude/reusable/.github/workflows/lint-k8s.yaml@main
+    with:
+      file-path: ./manifests
