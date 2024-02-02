@@ -1,13 +1,12 @@
 name: test action
 on:  
   workflow_dispatch:
+env:
+  REGISTRY: ghcr.io
 jobs:
   build-deployment:
     runs-on: ubuntu-latest
     steps:
-      # - name: Get the date
-      #   id: date
-      #   run: echo "::set-output name=date::$(date +'%m%d')"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Extract Minecraft version
@@ -20,5 +19,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: |
-            ${{env.REGISTRY}}/ocpdude/minecraft:${{ steps.minecraft_version.outputs.version }}
+          tags: ${{env.REGISTRY}}/ocpdude/minecraft:${{ steps.minecraft_version.outputs.version }}
