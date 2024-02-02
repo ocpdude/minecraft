@@ -1,9 +1,9 @@
 name: Minecraft OpenShift Staging
 
 on:
-  pull_request:
-    types:
-      - labeled
+  # pull_request:
+  #   types:
+  #     - labeled
   workflow_dispatch:
 
 env:
@@ -15,8 +15,8 @@ jobs:
     name: 'Staging Minecraft'
     runs-on: ubuntu-latest
     # label to run 
-    if: |
-      github.event.label.name == 'deploy to staging'
+    # if: |
+    #   github.event.label.name == 'deploy to staging'
 
     steps:
       - name: checkout-repo
