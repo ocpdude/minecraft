@@ -14,8 +14,11 @@ jobs:
         id: minecraft_version
         run: |
           echo "::setOutput name=version::$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
-          echo "VERSION=$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')">> $GITHUB_ENV
-          echo "Output version: $(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
-          echo "Environment version: $VERSION"
-
-          
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{env.REGISTRY}}/ocpdude/minecraft:${{ steps.minecraft_version.outputs.version }}
