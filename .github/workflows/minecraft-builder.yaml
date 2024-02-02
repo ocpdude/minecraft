@@ -50,7 +50,7 @@ jobs:
       #   run: echo "::set-output name=date::$(date +'%m%d')"
       - name: Extract Minecraft version
         id: minecraft_version
-        run: echo "::set-output name=version::$(./version.sh)"
+        run: echo "::set-output name=version::$(sh version.sh)"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
