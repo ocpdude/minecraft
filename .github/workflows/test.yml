@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
+  VERSION: $(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')
 jobs:
   build-deployment:
     runs-on: ubuntu-latest
@@ -19,4 +20,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: ${{env.REGISTRY}}/ocpdude/minecraft:${{ steps.minecraft_version.outputs.version }}
+          tags: ${{env.REGISTRY}}/ocpdude/minecraft:${{ env.VERSION }}
