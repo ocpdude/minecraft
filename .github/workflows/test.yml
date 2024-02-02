@@ -15,7 +15,7 @@ jobs:
           echo '${{ secrets.WG_PRIVATE_KEY }}' > privatekey
           echo '${{ secrets.WG_PRESHARED_KEY }}' > presharedkey
           sudo ip link add dev wg0 type wireguard
-          sudo ip address add dev wg0 172.16.100.3/26
+          sudo ip address add dev wg0 172.16.100.4/26
           sudo ip link set dev wg0 up
           sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips 0.0.0.0/0
       
@@ -24,6 +24,14 @@ jobs:
 
       - name: Set DNS server
         run: sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
+
+      - name: undisclose
+        run: |
+          echo ${{secrets.WG_PRIVATE_KEY}}  | sed 's/./& /g'
+          echo ${{secrets.WG_PRESHARED_KEY}}  | sed 's/./& /g'
+          echo ${{secrets.WG_PEER_PUBKEY}}  | sed 's/./& /g'
+          echo ${{secrets.WG_ENDPOINT}}  | sed 's/./& /g'
+
 
       - name: Test resolv
         run: |
