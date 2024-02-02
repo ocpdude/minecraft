@@ -15,7 +15,7 @@ jobs:
     k8s-lint:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v3
 
         # - name: List files and store in environment variable
         #   run: echo "MANIFESTS=$(ls manifests/*.yaml | xargs)" >> $GITHUB_ENV
