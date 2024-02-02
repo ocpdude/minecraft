@@ -17,10 +17,11 @@ jobs:
       steps:
         - uses: actions/checkout@v3
 
-        - name: List files and store in environment variable
-          run: echo "MANIFESTS=$(ls manifests/*.yaml | xargs)" >> $GITHUB_ENV 
-
-        - uses: azure/k8s-lint@v1
+        - name: 'Yamllint'
+          uses: kustomize-everything/action-yaml-linter@main
           with:
-            manifests: |
-              ${{ env.MANIFESTS }}
+            yamllint_file_or_dir: './manifests'
+            yamllint_strict: false
+            yamllint_comment: true
+          env:
+            GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
