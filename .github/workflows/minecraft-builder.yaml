@@ -45,14 +45,12 @@ jobs:
     needs: [ security-checks ]
     runs-on: ubuntu-latest
     steps:
-      # - name: Get the date
-      #   id: date
-      #   run: echo "::set-output name=date::$(date +'%m%d')"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Extract Minecraft version
         id: minecraft_version
-        run: echo "::set-output name=version::$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')"
+        run: echo "VERSION=$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')" >> $GITHUB_ENV
+        shell: bash
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -75,9 +73,9 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{env.REGISTRY}}/ocpdude/minecraft:${{ steps.minecraft_version.outputs.version }}
+            ${{env.REGISTRY}}/ocpdude/minecraft:${{ env.VERSION }}
             ${{env.REGISTRY}}/ocpdude/minecraft:latest
-            shaker242/minecraft:${{ steps.minecraft_version.outputs.version }}
+            shaker242/minecraft:${{ env.VERSION }}
             shaker242/minecraft:latest
 
   check_quality:
@@ -88,5 +86,5 @@ jobs:
         continue-on-error: true
         uses: azure/container-scan@v0
         with:
-          image-name: ${{env.REGISTRY}}/ocpdude/minecraft:latest
+          image-name: ${{env.REGISTRY}}/ocpdude/minecraft:${{ env.VERSION }}
           run-quality-checks: true
