@@ -22,7 +22,7 @@ jobs:
   lint-k8s:
     uses: ocpdude/reusable/.github/workflows/lint-k8s.yaml@main
     with:
-      file-path: /manifests
+      file-path: ./manifests
 
   # build:
   #   name: Lint it up! 🎸
