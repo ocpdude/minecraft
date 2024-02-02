@@ -8,10 +8,18 @@ jobs:
   wireguard:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt install wireguard
-      - run: sudo wg genkey > privatekey
-      - run: sudo ip link add dev wg0 type wireguard
-      - run: sudo ip address add dev wg0 192.168.2.1/24
-      - run: sudo wg set wg0 listen-port 48123 private-key privatekey peer gAZM0Q5U57P61Ifb0YHsA1hZPMF80uYGX4Ccyxf0NTY= allowed-ips 172.16.1.0/26 endpoint 96.255.45.219:51820
-      - run: sudo ip link set up dev wg0
-      - run: ping 172.16.1.9
+      - name: Setup WireGuard test
+        run: |
+          sudo apt install wireguard resolvconf
+          echo '${{ secrets.WG_PRIVATE_KEY }}' > privatekey
+          echo '${{ secrets.WG_PRESHARED_KEY }}' > presharedkey
+          sudo ip link add dev wg0 type wireguard
+          sudo ip address add dev wg0 172.16.100.2/26
+          sudo ip link set dev wg0 up
+          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips '${{ secrets.WG_ALLOWED_IPS }}'
+          sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
+          sudo route add -net 172.16.1.0/26 gw 172.16.100.1 wg0
+
+      - name: Test WireGuard connectivity
+        run: |
+          ping api.okd.redcloud.land -c 4
