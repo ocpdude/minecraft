@@ -16,7 +16,7 @@ jobs:
           sudo ip link add dev wg0 type wireguard
           sudo ip address add dev wg0 172.16.100.2/26
           sudo ip link set dev wg0 up
-          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint doclab.hoptop.org:51820 persistent-keepalive 25 allowed-ips 172.16.100.0/26
+          sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips 172.16.100.0/26
           
       - name: Add API to /etc/hosts
         run: sudo echo "172.16.1.19 api.okd.redcloud.land" | sudo tee -a /etc/hosts
@@ -31,4 +31,4 @@ jobs:
         run: |
           dig api.okd.redcloud.land
           dig @172.16.1.1 api.okd.redcloud.land
-          curl -k https://api.okd.redcloud.land:6443
+          curl http://172.16.1.9
