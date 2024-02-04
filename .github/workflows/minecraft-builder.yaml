@@ -33,6 +33,17 @@ jobs:
           image: localbuild/testimage:latest
           fail-build: false
           severity-cutoff: critical
+
+      - name: Add label
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['deploy to staging']
+            })
       - name: Upload vulnerability report
         uses: github/codeql-action/upload-sarif@v3
         with:
