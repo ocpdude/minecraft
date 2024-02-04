@@ -27,9 +27,13 @@ jobs:
           sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips '${{ secrets.WG_ALLOWED_IPS }}'
           sudo route add -net 172.16.1.0/26 gw 172.16.100.1 wg0
           sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
-      - name: Test Wireguard
+
+      - name: Install CA
         run: |
-          dig +short ${{ env.REGISTRY }}
+          sudo apt-get install ca-certificates -y
+          sudo cp ${{ secrets.REDCLOUD_CA }} /usr/local/share/ca-certificates
+          sudo update-ca-certificates
+
       - name: 'Checkout code'
         uses: actions/checkout@v4
       - name: Extract Minecraft version
