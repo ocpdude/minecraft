@@ -17,3 +17,5 @@ COPY forge-1.20.4-49.0.26-installer.jar /usr/local/mods
 WORKDIR /usr/local
 
 ENTRYPOINT ["java", "-Xmx2G", "-Xms2G", "-jar", "server.jar", "nogui"]
+
+# this is a pr test
