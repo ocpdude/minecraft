@@ -67,8 +67,8 @@ jobs:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
           openshift_username: ${{ secrets.OPENSHIFT_USER }}
           openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
-          certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
-          insecure_skip_tls_verify: true
+          # certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
+          # insecure_skip_tls_verify: true
       - name: 'Create Namespace'
         run: |
           oc new-project minecraft-okd-staging
@@ -77,5 +77,5 @@ jobs:
         with:
           app_name: minecraft
           registry_hostname: ${{ env.REGISTRY }}
-          image: ${{ env.REGISTRY }}/minecraft/minecraft-staging:latest
+          image: ${{env.REGISTRY}}/minecraft/minecraft-staging:${{ env.VERSION }}
           namespace: minecraft-okd-staging
