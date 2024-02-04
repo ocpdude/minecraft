@@ -30,8 +30,7 @@ jobs:
 
       - name: Install CA
         run: |
-          sudo apt-get install ca-certificates -y
-          sudo echo '${{ secrets.REDCLOUD_CA }}' > /usr/local/share/ca-certificates/redcloud.crt
+          sudo echo '${{ secrets.REDCLOUD_CA }}' | sudo tee /usr/local/share/ca-certificates/redcloud.crt
           sudo update-ca-certificates
 
       - name: 'Checkout code'
