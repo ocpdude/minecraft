@@ -1,45 +1,61 @@
 name: Minecraft OpenShift Staging
 
 on:
-  # pull_request:
-  #   types:
-  #     - labeled
+  pull_request:
+    types:
+      - labeled
+
   workflow_dispatch:
-
 env:
-  REGISTRY: ghcr.io
-
+  REGISTRY: registry.redcloud.land
 jobs: 
-  deploy_staging:
+  deploy_staging-okd:
     environment: openshift-staging
     name: 'Staging Minecraft'
     runs-on: ubuntu-latest
-    # label to run 
-    # if: |
-    #   github.event.label.name == 'deploy to staging'
-
+    if: |
+      github.event.label.name == 'deploy to staging'
     steps:
-      - name: Setup WireGuard connectivity
+      - name: 'Establish Wireguard Connection'
         run: |
           sudo apt install wireguard resolvconf
           echo '${{ secrets.WG_PRIVATE_KEY }}' > privatekey
           echo '${{ secrets.WG_PRESHARED_KEY }}' > presharedkey
           sudo ip link add dev wg0 type wireguard
-          sudo ip address add dev wg0 172.16.100.2/26
+          sudo ip address add dev wg0 172.16.100.4/26
           sudo ip link set dev wg0 up
           sudo wg set wg0 listen-port 51820 private-key privatekey peer '${{ secrets.WG_PEER_PUBKEY }}' preshared-key presharedkey endpoint '${{ secrets.WG_ENDPOINT }}' persistent-keepalive 25 allowed-ips '${{ secrets.WG_ALLOWED_IPS }}'
           sudo route add -net 172.16.1.0/26 gw 172.16.100.1 wg0
           sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
-
-      - name: checkout-repo
+      - name: 'Checkout code'
         uses: actions/checkout@v4
-
+      - name: Extract Minecraft version
+        id: minecraft_version
+        run: echo "VERSION=$(ls minecraft* | awk -F"." 'OFS="." {print $2,$3,$4}')" >> $GITHUB_ENV
+        shell: bash
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to RedCloud Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.NEXUS_USER }}
+          password: ${{ secrets.NEXUS_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{env.REGISTRY}}/minecraft/minecraft-staging:${{ env.VERSION }}
       - name: 'Install tools'
         uses: redhat-actions/openshift-tools-installer@v1
         with:
           oc: "latest"
-
-      - name: Authenticate and set namespace
+      - name: 'Authenticate and set namespace'
         uses: redhat-actions/oc-login@v1
         with:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
@@ -47,15 +63,13 @@ jobs:
           openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
           certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
           insecure_skip_tls_verify: true
-
       - name: 'Create Namespace'
         run: |
-          oc new-project minecraft-az-staging
-
-      - name: 'Deploy Test'
+          oc new-project minecraft-okd-staging
+      - name: 'Deploy to Staging'
         uses: redhat-actions/oc-new-app@v1
         with:
           app_name: minecraft
           registry_hostname: ${{ env.REGISTRY }}
-          image: ${{ env.REGISTRY }}/ocpdude/minecraft:latest
-          namespace: minecraft-az-staging
+          image: ${{ env.REGISTRY }}/minecraft/minecraft-staging:latest
+          namespace: minecraft-okd-staging
