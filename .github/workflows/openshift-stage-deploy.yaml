@@ -80,7 +80,7 @@ jobs:
           image: ${{env.REGISTRY}}/minecraft/minecraft-staging:${{ env.VERSION }}
           namespace: minecraft-okd-staging
           
-      - name: Report status and add label
+      - name: Report status
         uses: actions/github-script@v5
         with:
           script: |
@@ -91,11 +91,4 @@ jobs:
               state: 'success',
               description: 'The build succeeded!',
               context: 'Minecraft OpenShift Staging'
-            })
-            
-            github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              labels: ['deploy to staging']
             })
