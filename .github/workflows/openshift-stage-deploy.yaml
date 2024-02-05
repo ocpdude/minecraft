@@ -10,6 +10,8 @@ env:
   REGISTRY: registry.redcloud.land
 jobs: 
   deploy_staging-okd:
+    permissions:
+      statuses: write
     environment: openshift-staging
     name: 'Staging Minecraft'
     runs-on: ubuntu-latest
