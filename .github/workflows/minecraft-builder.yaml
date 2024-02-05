@@ -8,8 +8,8 @@ on:
     - 'Dockerfile'
   workflow_dispatch:
   
-# permissions:
-#   issues: write
+permissions:
+  issues: write
   
 jobs:
 
