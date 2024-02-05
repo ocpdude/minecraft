@@ -8,9 +8,6 @@ on:
     - 'Dockerfile'
   workflow_dispatch:
   
-permissions:
-  issues: write
-  
 jobs:
 
   lint-docker:
@@ -23,6 +20,7 @@ jobs:
       contents: read
       security-events: write
       actions: read
+      issues: write
     runs-on: ubuntu-latest
     needs: [ lint-docker ]
     steps:
