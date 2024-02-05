@@ -1,6 +1,6 @@
 ## Simple Minecraft Java Server - Works on OpenShift
 
-[![Minecraft Builder](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml) [![Bedrock Builder](https://github.com/ocpdude/minecraft/actions/workflows/bedrock-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/bedrock-builder.yaml) [![Linting Dockerfiles 🐳](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml) [![Linting Kubernetes ☸️](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml)
+[![Minecraft Builder](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml) [![Linting Dockerfiles 🐳](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml) [![Linting Kubernetes ☸️](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml)
 
 ### Updates on 07/05/23 Minecraft to Version 1.20.1
 ### Minecraft
