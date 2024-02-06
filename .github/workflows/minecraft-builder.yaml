@@ -42,15 +42,9 @@ jobs:
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
 
-      - uses: actions/labeler@v5
-        with: 
-          new-labels: ['deploy to staging']
-      # - uses: actions/github-script@v7
-      #   with:
-      #     script: |
-      #       github.rest.issues.addLabels({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         issue_number: context.issue.number,
-      #         labels: ['deploy to staging']
-      #       })
+      - name: Label to PR
+        uses: naver/simple-labeler@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: "deploy to staging"
+    
