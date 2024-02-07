@@ -52,4 +52,3 @@ jobs:
               issue_number: context.issue.number,
               labels: ['deploy to staging']
             })
-    
