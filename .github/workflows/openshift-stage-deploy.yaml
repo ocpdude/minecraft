@@ -85,6 +85,7 @@ jobs:
       - name: Report status
         uses: actions/github-script@v5
         with:
+          github_token: ${{ secrets.AUTOMATION }}
           script: |
             github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
