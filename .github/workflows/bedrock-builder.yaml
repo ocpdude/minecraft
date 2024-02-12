@@ -70,8 +70,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{env.REGISTRY}}/ocpdude/minecraft:${{ env.VERSION }}
-            ${{env.REGISTRY}}/ocpdude/minecraft:latest
+            ${{env.REGISTRY}}/ocpdude/bedrock:${{ env.VERSION }}
+            ${{env.REGISTRY}}/ocpdude/bedrock:latest
             shaker242/bedrock:${{ env.VERSION }}
             shaker242/bedrock:latest
 
@@ -107,4 +107,4 @@ jobs:
           certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
           namespace: minecraft
       - name: "Deploy Production"
-        run: oc set image deployment/minecraft-bedrock bedrock=${{env.REGISTRY}}/ocpdude/minecraft:${{ env.VERSION }} --all
+        run: oc set image deployment/minecraft-bedrock bedrock=${{env.REGISTRY}}/ocpdude/bedrock:${{ env.VERSION }} --all
