@@ -4,7 +4,7 @@ FROM docker.io/ubuntu:20.04
 LABEL app=minecraft \
       org.opencontainers.image.description="Minecraft Bedrock Server" \
       org.opencontainers.image.source="https://github.com/ocpdude/minecraft"
-      
+
 ARG BEDROCK_VERSION=1.20.61.01
 
 RUN apt-get update \
