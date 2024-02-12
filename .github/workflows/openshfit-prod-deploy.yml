@@ -92,7 +92,7 @@ jobs:
         continue-on-error: true
         run: oc delete ns minecraft-okd-staging
       - name: "Remove Staging Environment"
-        uses: strumwolf/delete-deployment-environment@v2
+        uses: strumwolf/delete-deployment-environment@v3
         with:
           token: ${{secrets.GITHUB_TOKEN}}
           environment: minecraft-staging
