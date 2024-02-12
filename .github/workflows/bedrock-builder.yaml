@@ -1,7 +1,7 @@
 name: Bedrock Build & Deploy  
 
 on:
-  pull_request:
+  push:
     branches:
     - main
     paths:
@@ -109,6 +109,6 @@ jobs:
           openshift_username: ${{ secrets.OPENSHIFT_USER }}
           openshift_password: ${{ secrets.OCPADMIN_PASSWORD }}
           certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
-          namespace: minecraft
+          namespace: minecraft-bedrock
       - name: "Deploy Production"
-        run: oc set image deployments bedrock=${{env.REGISTRY}}/ocpdude/bedrock:${{ env.VERSION }} --all
+        run: oc set image deployment/minecraft-bedrock bedrock=ghcr.io/ocpdude/bedrock:${{ env.VERSION }}
