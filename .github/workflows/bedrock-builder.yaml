@@ -78,12 +78,15 @@ jobs:
             ${{env.REGISTRY}}/ocpdude/bedrock:latest
             shaker242/bedrock:${{ env.VERSION }}
             shaker242/bedrock:latest
-
+    outputs:
+      version: ${{ steps.bedrock_version.outputs.VERSION }}
   deploy_production:
     environment: bedrock-production
     name: "Deploying Bedrock"
     runs-on: [ ubuntu-latest ]
     needs: [ security-checks ]
+    env:
+      VERSION: ${{ needs.security-checks.outputs.version }}
     steps:
       - name: 'Establish Wireguard Connection'
         run: |
