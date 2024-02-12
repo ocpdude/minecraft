@@ -121,6 +121,6 @@ jobs:
           name: version
           path: version.txt
       - name: Use version
-        run: VERSION=$(cat version.txt) && echo $VERSION
+        run: VERSION=$(cat version.txt) >> $GITHUB_ENV
       - name: "Deploy Production"
         run: oc set image deployment/minecraft-bedrock bedrock=ghcr.io/ocpdude/bedrock:${{ env.VERSION }}
