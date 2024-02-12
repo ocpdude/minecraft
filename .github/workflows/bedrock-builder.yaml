@@ -52,11 +52,6 @@ jobs:
         id: bedrock_version
         run: echo VERSION=$(sed -n 's/^ARG BEDROCK_VERSION=\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' bedrock/Dockerfile) >> $GITHUB_ENV
         shell: bash
-      - name: Save version as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: version
-          path: version.txt
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -103,6 +98,10 @@ jobs:
           sudo resolvconf -u && echo "nameserver 172.16.1.1" | sudo tee /etc/resolvconf/resolv.conf.d/head && sudo resolvconf -u
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Extract Bedrock version
+        id: bedrock_version
+        run: echo VERSION=$(sed -n 's/^ARG BEDROCK_VERSION=\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/p' bedrock/Dockerfile) >> $GITHUB_ENV
+        shell: bash
       - name: "Install tools"
         uses: redhat-actions/openshift-tools-installer@v1
         with:
@@ -115,12 +114,5 @@ jobs:
           openshift_password: ${{ secrets.OCPADMIN_PASSWORD }}
           certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
           namespace: minecraft-bedrock
-      - name: Download version
-        uses: actions/download-artifact@v2
-        with:
-          name: version
-          path: version.txt
-      - name: Use version
-        run: VERSION=$(cat version.txt) >> $GITHUB_ENV
       - name: "Deploy Production"
         run: oc set image deployment/minecraft-bedrock bedrock=ghcr.io/ocpdude/bedrock:${{ env.VERSION }}
