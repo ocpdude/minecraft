@@ -5,6 +5,7 @@ on:
     - '!main'
     paths: 
     - Dockerfile
+    - bedrock/Dockerfile
 
  workflow_dispatch:
 
