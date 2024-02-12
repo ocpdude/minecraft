@@ -111,4 +111,4 @@ jobs:
           certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
           namespace: minecraft
       - name: "Deploy Production"
-        run: oc set image deployment/minecraft-bedrock bedrock=${{env.REGISTRY}}/ocpdude/bedrock:${{ env.VERSION }} --all
+        run: oc set image deployments bedrock=${{env.REGISTRY}}/ocpdude/bedrock:${{ env.VERSION }} --all
