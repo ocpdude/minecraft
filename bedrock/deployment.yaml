@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-bedrock
+  namespace: minecraft-bedrock
+  labels:
+    app: bedrock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bedrock
+  template:
+    metadata:
+      labels:
+        app: bedrock
+    spec:
+      containers:
+      - name: bedrock
+        image: ghcr.io/ocpdude/bedrock:latest
+        ports:
+        - containerPort: 19132
+        resources:
+          limits:
+            cpu: 1
+            memory: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bedrock-svc
+spec:
+  type: NodePort
+  selector:
+    app: bedrock
+  ports:
+    - port: 19132
+      name: bedrock
+      targetPort: 19132
+      nodePort: 30132
