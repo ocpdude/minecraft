@@ -4,6 +4,8 @@ FROM docker.io/ubuntu:20.04
 LABEL app=minecraft \
       org.opencontainers.image.description="Minecraft Bedrock Server" \
       org.opencontainers.image.source="https://github.com/ocpdude/minecraft"
+      
+ARG BEDROCK_VERSION=1.20.61.01
 
 RUN apt-get update \
     && apt-get install -y wget unzip curl --no-install-recommends \
@@ -11,7 +13,7 @@ RUN apt-get update \
 
 WORKDIR /usr/local
 
-RUN wget -O bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-1.20.61.01.zip --no-check-certificate \
+RUN wget -O bedrock-server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-${BEDROCK_VERSION}.zip --no-check-certificate \
   && unzip bedrock-server.zip -d /usr/local \
   && rm bedrock-server.zip
 
