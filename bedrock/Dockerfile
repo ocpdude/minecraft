@@ -25,4 +25,4 @@ RUN mkdir -p /usr/local/logs /usr/local/mods \
   && chgrp -R 0 /run /usr/local /var/cache /var/log /var/run && chmod -R g=u /run /usr/local /var/cache /var/log /var/run 
 
 
-ENTRYPOINT ["/usr/local/bedrock_server"]
+ENTRYPOINT ["./bedrock_server"]
