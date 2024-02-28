@@ -4,6 +4,8 @@ on:
   pull_request:
     types:
       - labeled
+    paths:
+      - '!.github/workflows/**'
 
   workflow_dispatch:
 env:

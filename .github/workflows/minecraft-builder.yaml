@@ -6,6 +6,8 @@ on:
     - main
     paths:
     - 'Dockerfile'
+    - '!.github/workflows/**'
+    
   workflow_dispatch:
   
 jobs:
