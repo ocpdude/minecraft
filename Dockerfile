@@ -11,7 +11,7 @@ EXPOSE 25565
 RUN mkdir -p /usr/local/logs /usr/local/mods \
   && chgrp -R 0 /run /usr/local /var/cache /var/log /var/run && chmod -R g=u /run /usr/local /var/cache /var/log /var/run 
 
-COPY minecraft_server.1.20.4.jar /usr/local/server.jar
+COPY minecraft_server.1.21.jar  /usr/local/server.jar
 COPY forge-1.21-51.0.26-installer.jar /usr/local/mods
 
 WORKDIR /usr/local
