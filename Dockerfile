@@ -1,4 +1,4 @@
-FROM docker.io/amazoncorretto:21-alpine-full
+FROM docker.io/amazoncorretto:8u422-al2-generic
 
 LABEL app=minecraft \
       org.opencontainers.image.description="Minecraft Server" \
@@ -11,8 +11,8 @@ EXPOSE 25565
 RUN mkdir -p /usr/local/logs /usr/local/mods \
   && chgrp -R 0 /run /usr/local /var/cache /var/log /var/run && chmod -R g=u /run /usr/local /var/cache /var/log /var/run 
 
-COPY minecraft_server.1.20.4.jar /usr/local/server.jar
-COPY forge-1.20.4-49.0.26-installer.jar /usr/local/mods
+RUN curl -o /usr/local/server.jar https://piston-data.mojang.com/v1/objects/450698d1863ab5180c25d7c804ef0fe6369dd1ba/server.jar
+COPY forge-1.21-51.0.26-installer.jar /usr/local/mods
 
 WORKDIR /usr/local
 
