@@ -54,7 +54,7 @@ jobs:
           username: ${{ secrets.NEXUS_USER }}
           password: ${{ secrets.NEXUS_PASSWORD }}
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64
