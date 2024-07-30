@@ -5,7 +5,7 @@ on:
     branches:
       - dev-* # Only run on dev branches
     paths:
-      - 'minecraft/Dockerfile'
+      - 'Dockerfile'
     
   workflow_dispatch:
   
