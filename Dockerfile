@@ -1,4 +1,4 @@
-FROM docker.io/amazoncorretto:22-alpine
+FROM docker.io/amazoncorretto:8u422-al2-generic
 
 LABEL app=minecraft \
       org.opencontainers.image.description="Minecraft Server" \
@@ -17,3 +17,5 @@ COPY forge-1.21-51.0.26-installer.jar /usr/local/mods
 WORKDIR /usr/local
 
 ENTRYPOINT ["java", "-Xmx2G", "-Xms2G", "-jar", "server.jar", "nogui"]
+
+# test to trigger PR

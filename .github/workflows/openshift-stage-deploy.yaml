@@ -71,7 +71,8 @@ jobs:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
           openshift_username: ${{ secrets.OPENSHIFT_USER }}
           openshift_password: ${{ secrets.OPENSHIFT_PASSWORD }}
-          insecure_skip_tls_verify: true
+          # certificate_authority_data: ${{ secrets.REDCLOUD_CA }}
+          # insecure_skip_tls_verify: true
       - name: 'Create Namespace'
         run: |
           oc new-project minecraft-okd-staging
