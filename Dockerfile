@@ -1,5 +1,7 @@
 FROM docker.io/amazoncorretto:22-alpine
 
+# testing workflow reports in graylog
+
 LABEL app=minecraft \
       org.opencontainers.image.description="Minecraft Server" \
       org.opencontainers.image.source="https://github.com/ocpdude/minecraft"
