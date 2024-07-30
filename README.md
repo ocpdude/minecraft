@@ -1,6 +1,6 @@
 ## Simple Minecraft Java Server - Works on OpenShift
 
-[![Minecraft Builder](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/minecraft-builder.yaml) [![Linting Dockerfiles 🐳](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml) [![Linting Kubernetes ☸️](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml)
+[![Linting Dockerfiles 🐳](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/dockerfile-lint.yaml) [![Linting Kubernetes ☸️](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml/badge.svg)](https://github.com/ocpdude/minecraft/actions/workflows/kubernetes-lint.yaml)
 
 ### Minecraft
 This is simple java server using NodePort 30065/tcp mapped to pod/container port 22565/tcp. 
