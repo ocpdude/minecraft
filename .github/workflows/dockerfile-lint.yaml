@@ -2,10 +2,10 @@ name: Linting Dockerfiles 🐳
 on:
  pull_request:
     branches:
-    - '!main'
+    - 'main'
     paths: 
     - Dockerfile
-    - bedrock/Dockerfile
+    # - bedrock/Dockerfile
 
  workflow_dispatch:
 
