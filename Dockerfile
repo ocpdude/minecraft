@@ -8,6 +8,7 @@ RUN echo "eula=true" > /usr/local/eula.txt
 
 EXPOSE 25565
 
+# hadolint ignore=DL3008,SC2034
 RUN mkdir -p /usr/local/logs /usr/local/mods \
   && apt-get update && apt-get install -y curl --no-install-recommends \
   && apt-get clean \
@@ -17,5 +18,5 @@ RUN mkdir -p /usr/local/logs /usr/local/mods \
   && curl -o /usr/local/mods/forge-1.21.4.jar https://adfoc.us/serve/sitelinks/?id=271228&url=https://maven.minecraftforge.net/net/minecraftforge/forge/1.21.4-54.0.6/forge-1.21.4-54.0.6-installer.jar
 
 WORKDIR /usr/local
-# hadolint ignore=DL3008,SC2034
+
 ENTRYPOINT ["java", "-Xmx2G", "-Xms2G", "-jar", "server.jar", "nogui"]
